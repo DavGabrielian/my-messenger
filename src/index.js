@@ -1,10 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import * as serviceWorker from "./serviceWorker";
+import { Route, BrowserRouter as Router } from "react-router-dom";
+import Login from "./components/login/login";
+import Signup from "./components/signup/signup";
+import Dashboard from "./components/dashboard/dashboard";
+import "./index.css";
 
 const firebase = require("firebase");
 require("firebase/firestore");
+
 firebase.initializeApp({
   apiKey: "AIzaSyB3O6WaN0jRcs7fqhDFDrejXETodTx3kZk",
   authDomain: "my-messenger-99c12.firebaseapp.com",
@@ -16,6 +21,16 @@ firebase.initializeApp({
   measurementId: "G-L80MXLN9HF",
 });
 
-ReactDOM.render(<div>hello world</div>, document.getElementById("root"));
+const routing = (
+  <Router>
+    <div id="routing-container">
+      <Route path="/login" component={Login} />
+      <Route path="/signup" component={Signup} />
+      <Route path="/dashboard" component={Dashboard} />
+    </div>
+  </Router>
+);
+
+ReactDOM.render(routing, document.getElementById("root"));
 
 serviceWorker.unregister();
