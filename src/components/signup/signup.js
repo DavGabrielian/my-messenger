@@ -12,6 +12,16 @@ import styles from "./styles";
 const firebase = require("firebase");
 
 class Signup extends Component {
+  constructor() {
+    super();
+    this.state = {
+      email: null,
+      password: null,
+      passwordConfirmation: null,
+      signupError: "",
+    };
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -64,6 +74,17 @@ class Signup extends Component {
               Submit
             </Button>
           </form>
+
+          {this.state.signupError ? (
+            <Typography
+              className={classes.errorText}
+              component="h5"
+              variant="h6"
+            >
+              {this.state.signupError}
+            </Typography>
+          ) : null}
+
           <Typography
             component="h5"
             variant="h6"
@@ -79,12 +100,71 @@ class Signup extends Component {
     );
   }
 
-  submitSignup = (e) => {
-    console.log("submitting!");
-  };
+  formIsValid = () => this.state.password === this.state.passwordConfirmation;
 
   userTyping = (type, e) => {
-    console.log(type, e);
+    switch (type) {
+      case "email":
+        this.setState({
+          email: e.target.value,
+        });
+        break;
+
+      case "password":
+        this.setState({
+          password: e.target.value,
+        });
+        break;
+
+      case "passwordConfirmation":
+        this.setState({
+          passwordConfirmation: e.target.value,
+        });
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  submitSignup = (e) => {
+    e.preventDefault();
+    if (!this.formIsValid()) {
+      this.setState({
+        signupError: "Passwords don't match!",
+      });
+      return;
+    }
+
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then(
+        (authRes) => {
+          const userObj = {
+            email: authRes.user.email,
+          };
+
+          firebase
+            .firestore()
+            .collection("users")
+            .doc(this.state.email)
+            .set(userObj)
+            .then(
+              () => {
+                this.props.history.push("/dashboard");
+              },
+              (dbError) => {
+                console.log(dbError);
+                this.setState({ signupError: "Failed to add user" });
+              }
+            );
+        },
+        (authError) => {
+          console.log(authError);
+          this.setState({ signupError: "Failed to add user" });
+        }
+      );
   };
 }
 export default withStyles(styles)(Signup);
