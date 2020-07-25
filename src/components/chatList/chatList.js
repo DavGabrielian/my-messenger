@@ -15,15 +15,15 @@ class ChatList extends React.Component {
   render() {
     const { classes } = this.props;
 
-    if (this.props.length > 0) {
+    if (this.props.chats.length > 0) {
       return (
-        <main className={classes.root}>
+        <div className={classes.root}>
           <Button
             variant="contained"
             fullWidth
             color="primary"
-            className={classes.newChatBtn}
             onClick={this.newChat}
+            className={classes.newChatBtn}
           >
             New Message
           </Button>
@@ -32,9 +32,7 @@ class ChatList extends React.Component {
               return (
                 <div key={_index}>
                   <ListItem
-                    onClick={() => {
-                      this.selectChat(_index);
-                    }}
+                    onClick={() => this.selectChat(_index)}
                     className={classes.listItem}
                     selected={this.props.selectedChatIndex === _index}
                     alignItems="flex-start"
@@ -61,22 +59,22 @@ class ChatList extends React.Component {
                           <Typography component="span" color="textPrimary">
                             {_chat.messages[
                               _chat.messages.length - 1
-                            ].message.substring(0, 30)}
+                            ].message.substring(0, 30) + " ..."}
                           </Typography>
                         </React.Fragment>
                       }
-                    ></ListItemText>
+                    />
                   </ListItem>
-                  <Divider></Divider>
+                  <Divider />
                 </div>
               );
             })}
           </List>
-        </main>
+        </div>
       );
     } else {
       return (
-        <main className={classes.root}>
+        <div className={classes.root}>
           <Button
             variant="contained"
             fullWidth
@@ -87,7 +85,7 @@ class ChatList extends React.Component {
             New Message
           </Button>
           <List></List>
-        </main>
+        </div>
       );
     }
   }
