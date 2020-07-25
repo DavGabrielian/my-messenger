@@ -16,7 +16,6 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        <div>hello from dashboard</div>
         <ChatList
           history={this.props.history}
           newChatBtnFn={this.newChatBtnClicked}
