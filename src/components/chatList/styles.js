@@ -5,7 +5,7 @@ const styles = theme => ({
       position: 'absolute',
       left: '0',
       width: '300px',
-      boxShadow: '0px 0px 2px black'
+      boxShadow: '0px 0px 5px black'
     },
     listItem: {
       cursor: 'pointer'

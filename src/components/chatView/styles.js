@@ -40,7 +40,7 @@ const styles = (theme) => ({
   chatHeader: {
     width: "calc(100% - 301px)",
     height: "50px",
-    backgroundColor: "#BDC3C7",
+    backgroundColor: "rgba(0, 0, 0, 0.08)",
     position: "fixed",
     marginLeft: "301px",
     fontSize: "18px",
