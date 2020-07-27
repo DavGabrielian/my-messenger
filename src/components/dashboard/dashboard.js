@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ChatList from "../chatList/chatList";
 import ChatView from "../chatView/chatView";
+import ChatTextbox from "../chatTextbox/chatTextbox";
 import { Button, withStyles } from "@material-ui/core";
 import styles from "./styles";
 
@@ -19,22 +20,29 @@ class Dashboard extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div>
+      <div className="dashboard-container" id="dashboard-container">
         <ChatList
           history={this.props.history}
-          newChatBtnFn={this.newChatBtnClicked}
+          userEmail={this.state.email}
           selectChatFn={this.selectChat}
           chats={this.state.chats}
-          userEmail={this.state.email}
           selectedChatIndex={this.state.selectedChat}
+          newChatBtnFn={this.newChatBtnClicked}
         ></ChatList>
         {this.state.newChatFormVisible ? null : (
           <ChatView
             user={this.state.email}
             chat={this.state.chats[this.state.selectedChat]}
-          />
+          ></ChatView>
         )}
-        <Button className={classes.signOutBtn} onClick={this.signOut}>
+        {this.state.selectedChat !== null && !this.state.newChatFormVisible ? (
+          <ChatTextbox
+            userClickedInputFn={this.messageRead}
+            submitMessageFn={this.submitMessage}
+          ></ChatTextbox>
+        ) : null}
+
+        <Button onClick={this.signOut} className={classes.signOutBtn}>
           Sign Out
         </Button>
       </div>

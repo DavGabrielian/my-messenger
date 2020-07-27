@@ -18,10 +18,10 @@ const styles = (theme) => ({
     boxSizing: "border-box",
     wordWrap: "break-word",
     marginTop: "10px",
-    backgroundColor: "#2E86D9",
+    backgroundColor: "#3498DB",
     color: "white",
     width: "300px",
-    borderRadius: "10px",
+    borderRadius: "11px",
   },
 
   friendSent: {
@@ -31,16 +31,16 @@ const styles = (theme) => ({
     boxSizing: "border-box",
     wordWrap: "break-word",
     marginTop: "10px",
-    backgroundColor: "#2E86D9",
+    backgroundColor: "#3498DB",
     color: "white",
     width: "300px",
-    borderRadius: "10px",
+    borderRadius: "11px",
   },
 
   chatHeader: {
     width: "calc(100% - 301px)",
     height: "50px",
-    backgroundColor: "rgba(0, 0, 0, 0.08)",
+    backgroundColor: "rgba(0, 0, 0, 0.09)",
     position: "fixed",
     marginLeft: "301px",
     fontSize: "18px",
